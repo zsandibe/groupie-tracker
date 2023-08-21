@@ -9,7 +9,7 @@ func Server(handler delivery.Handler) *http.Server {
 	mux := http.NewServeMux()
 	handler.Routes(mux)
 	return &http.Server{
-		Addr:    ":8080",
+		Addr:    ":8081",
 		Handler: mux,
 	}
 }

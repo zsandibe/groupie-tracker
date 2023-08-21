@@ -10,7 +10,7 @@ import (
 func Start() error {
 	ourHandler := d.NewHandler()
 	server := s.Server(*ourHandler)
-	log.Println("Server is running...\nhttp://localhost:8080/")
+	log.Println("Server is running...\nhttp://localhost:8081")
 	err := server.ListenAndServe()
 	if err != nil {
 		return errors.New(err.Error())

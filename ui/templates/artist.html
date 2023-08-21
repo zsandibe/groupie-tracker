@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/artist.css">
+    <!-- <script src="../../ui/scripts/geo.js" type = "text/javascript"></script> -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=en_RU&amp;apikey=8174c492-0b49-4e55-ae84-e249d9ff1b7e" type="text/javascript"></script>
+    <title>Artist</title>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Groupie <span class="header-tracker">Tracker</span></h1>
+    </header>
+    <h2>{{.Name}}</h2>
+<div class="wrapper">
+  <input class="radio" id="one" name="group" type="radio" checked>
+  <input class="radio" id="two" name="group" type="radio">
+  <input class="radio" id="three" name="group" type="radio">
+  <div class="tabs">
+  <label class="tab" id="one-tab" for="one">Group</label>
+  <label class="tab" id="two-tab" for="two">Members</label>
+  <label class="tab" id="three-tab" for="three">Concerts</label>
+    </div>
+  <div class="panels">
+  <div class="panel" id="one-panel">
+    <div class="panel-title">{{.Name}}</div>
+    <img src="{{.Image}}" alt="{{.Image}}"  />
+    <p>Creation date: {{.CreationDate}}</p>
+    <p>First Album:: {{.FirstAlbum}}</p>
+  </div>
+  <div class="panel" id="two-panel">
+    <div class="panel-title">Members:</div>
+    {{ range $member:= .Members}}
+    <p class="member">  
+         {{$member}}
+    </p>
+    {{end}}
+  </div>
+  <div class="panel" id="three-panel">
+    <div class="panel-title">Concert Dates:</div>
+    {{ range $concert, $dates:= .DatesLocations}}
+                <p class="location">{{$concert}}</p>
+                {{range $date:=$dates}}
+                <p>{{$date}}</p>
+                {{end}}
+            {{end}}
+    </div>
+    <div class="button">
+        <a href="/">Go back home</a>
+    </div>
+    <div class = "geo" id="map"></div>
+  </div> 
+</div>
+</body>
+<script>
+ymaps.ready(init);
+
+function init() {
+  myMap = new ymaps.Map("map", {
+    center: [51.11, 71.45],
+    zoom: 3,
+  });
+
+  let coords = document.getElementsByClassName("location");
+  let markers = [];
+
+  for (let coord of coords) {
+    let newCoord = coord.innerHTML.replace(/-/g, "_");
+    newCoord = newCoord.replace(/_/g, " ");
+    console.log(newCoord);
+
+    let myGeocoder = ymaps.geocode(newCoord, {
+      results: 1,
+      prefLang: "eng",
+    });
+
+    myGeocoder.then(function (res) {
+      let placemark = res.geoObjects.get(0);
+      markers.push(placemark.geometry.getCoordinates());
+      myMap.geoObjects.add(placemark);
+      
+      if (markers.length >= 2) {
+        // Вычисляем границы для всех меток
+        let bounds = ymaps.util.bounds.fromPoints(markers);
+        
+        // Устанавливаем центр и зум так, чтобы две метки были видны
+        myMap.setBounds(bounds, {
+          checkZoomRange: true,
+          zoomMargin: 50,
+        });
+      }
+    });
+  }
+}
+
+</script>
+</html>
+

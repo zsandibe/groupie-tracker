@@ -1,0 +1,212 @@
+/* Стили для блоков фильтрации */
+
+.range_container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.range_container span {
+    font-size: 0.9rem;
+    color: #333;
+    margin-left: 10px;
+}
+
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-check-input:checked + .form-check-label .custom-checkbox {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-checkbox i {
+    color: #fff;
+    font-size: 12px;
+}
+
+.form-check {
+    margin-right: 15px;
+}
+
+.form-check-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: #333;
+}
+
+.members-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.input-group-text {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-check-input {
+    display: none;
+}
+
+.form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.form-check-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.label-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-check-input:checked + label {
+    background-color: rgb(249, 249, 249);
+    color: #333;
+}
+
+.label-container:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.filter {
+    margin-bottom: 20px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.range_container {
+    display: flex;
+    align-items: center;
+}
+
+.sliders_control {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.sliders_control input[type="range"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_control {
+    display: flex;
+    align-items: center;
+}
+
+.form_control_container {
+    margin-right: 10px;
+}
+
+.form_control_container__time {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form_control_container__time__input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* При наведении на ползунок и инпуты */
+.sliders_control input[type="range"]:hover,
+.form_control_container__time__input:hover {
+    border-color: #007bff;
+}
+
+/* При активации (нажатии) ползунка */
+.sliders_control input[type="range"]:active {
+    border-color: #0056b3;
+}
+
+/* Стили кнопок и ползунков */
+#apply-filters,
+#delete-filters {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border-radius: 3px;
+    outline: none;
+    margin-right: 10px;
+    flex: 1;
+    text-align: center;
+}
+
+#delete-filters {
+    background-color: #f8031c;
+}
+
+#apply-filters:hover{
+    background-color: #0056b3;
+}
+#delete-filters:hover {
+    background-color: #c0303f;
+}
+
+/* Дополнительные стили для кнопок */
+.side-menu.active #apply-filters,
+.side-menu.active #delete-filters {
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

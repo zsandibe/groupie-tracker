@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	a "zsandibe/internal/app"
 )
 
 func main() {
-	a.Start()
+	if err := a.Start(); err != nil {
+		fmt.Println("Server is busy...")
+	}
 }

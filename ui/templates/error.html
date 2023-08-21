@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/error.css">
+    <title>Error</title>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Error</h1>
+    </header>
+    <div class="container">
+        <div class="error-message">
+            <p>An error has occurred. Please try again later.</p>
+            <h2 class="error-code">{{.ErrorCode}}</h2>
+            <p class="error-text">{{.ErrorText}}</p>
+        </div>
+        <div class="button">
+            <a href="/" class="home-link">Go Back Home</a>
+        </div>
+    </div>
+</body>
+</html>

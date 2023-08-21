@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie tracker</title>
+    <script src="../../ui/scripts/rangeinput.js"></script>
+    <script src="../../ui/scripts/visiblevalues.js"></script>
+    <link rel="stylesheet" href="../../ui/static/style.css">
+    <link rel="stylesheet" href="../../ui/static/search.css">
+    <link rel="stylesheet" href="../../ui/static/filter.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>  
+  <header class="header">
+    <a href="/">
+      <h1 class="header-title">Groupie <span class="header-tracker">Tracker</span></h1>
+    </a>
+  </header>
+    <div class="search-container">
+      <form action="/searched" method="get" autocomplete="off">
+        <input type="text" placeholder="Search.." name="search" list="search_data" name="search_data" required>
+        <datalist id="search_data">
+          {{range .Artists}}
+          <option value="{{.Name}}">{{.Name}} - Artist/Band</option>
+          <option value="{{.CreationDate}}">{{.CreationDate}} - Creation Date</option>
+          <option value="{{.FirstAlbum}}">{{.FirstAlbum}} - First Album</option>
+            {{range .Members}}
+              <option value="{{.}}">{{.}} - Member</option>
+            {{end}}
+            {{range $city, $dates := .DatesLocations}}
+              <option value="{{$city}}">{{$city}} - Location</option>
+              {{range $dates}}
+                <option value="{{.}}">{{.}} - Concert Date</option>
+              {{end}}
+            {{end}}
+          {{end}}
+        </datalist>
+        <button type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+      <div class="menu-button" id="menu-button">
+        <i class="fas fa-filter"></i>
+      </div>
+    </div>
+    <!-- <div class="menu-button" id="menu-button">
+      <i class="fas fa-filter"></i>
+    </div> -->
+    <div class="side-menu" id="side-menu">
+      <button class="close-button" id="close-button">
+        <i class="fas fa-times"></i>
+    </button>
+    <form action="/filtered" method="get">
+      <h2>Filters</h2>
+    <div class="filter">
+      <h3>Creation Date</h3>
+      <div class="range_container">
+          <div class="sliders_control">
+              <input id="fromSlider1" type="range" value="1900" min="1900" max="2022" name="mindate">
+              <span id="fromSlider1Value">1900</span>
+              <input id="toSlider1" type="range" value="2022" min="1900" max="2022" name="maxdate">
+              <span id="toSlider1Value">2022</span>
+          </div>
+          <!-- <div class="form_control">
+              <div class="form_control_container">
+                  <div class="form_control_container__time">Min</div>
+                  <input class="form_control_container__time__input" type="number" id="fromInput1" value="1900" min="1900" max="2022">
+              </div>
+              <div class="form_control_container">
+                  <div class="form_control_container__time">Max</div>
+                  <input class="form_control_container__time__input" type="number" id="toInput1" value="2022" min="1900" max="2022">
+              </div>
+          </div> -->
+      </div>
+  </div>
+  
+  <div class="filter">
+      <h3>First Album Date</h3>
+      <div class="range_container">
+          <div class="sliders_control">
+              <input id="fromSlider2" type="range" value="1900" min="1900" max="2022" name="minalbumdate">
+              <span id="fromSlider2Value">1900</span>
+              <input id="toSlider2" type="range" value="2022" min="1900" max="2022" name="maxalbumdate">
+              <span id="toSlider2Value">2022</span>
+          </div>
+      </div>
+  </div>
+  <div class="filter">
+    <h3>Members</h3>
+    <div class="members-container">
+      <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="1" value="1" aria-label="Checkbox for following text input" name="memberscount">
+          <label class="form-check-label" for="1">
+            <span class="custom-checkbox"><i class="fas fa-check"></i></span> 1
+          </label>
+      </div>
+      <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="2" value="2" aria-label="Checkbox for following text input" name="memberscount">
+          <label class="form-check-label" for="2">
+            <span class="custom-checkbox"><i class="fas fa-check"></i></span> 2
+          </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="3" value="3" aria-label="Checkbox for following text input" name="memberscount">
+        <label class="form-check-label" for="3">
+          <span class="custom-checkbox"><i class="fas fa-check"></i></span> 3
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="4" value="4" aria-label="Checkbox for following text input" name="memberscount">
+        <label class="form-check-label" for="4">
+          <span class="custom-checkbox"><i class="fas fa-check"></i></span> 4
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="5" value="5" aria-label="Checkbox for following text input" name="memberscount">
+        <label class="form-check-label" for="5">
+          <span class="custom-checkbox"><i class="fas fa-check"></i></span> 5
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="6" value="6" aria-label="Checkbox for following text input" name="memberscount">
+        <label class="form-check-label" for="6">
+          <span class="custom-checkbox"><i class="fas fa-check"></i></span> 6
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="7" value="7" aria-label="Checkbox for following text input" name="memberscount">
+        <label class="form-check-label" for="7">
+          <span class="custom-checkbox"><i class="fas fa-check"></i></span> 7
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="8" value="8" aria-label="Checkbox for following text input" name="memberscount">
+        <label class="form-check-label" for="8">
+          <span class="custom-checkbox"><i class="fas fa-check"></i></span> 8
+        </label>
+      </div>
+  
+  </div>
+</div>
+  
+    <div class="filter">
+      <h3>Locations</h3>
+      <input type="text" class="form-control" placeholder="Locations" list="search_data-filter" name="location">
+      <datalist id="search_data-filter">
+          {{range .Artists}}
+              {{range $city, $dates := .DatesLocations}}
+                  <option value="{{$city}}">{{$city}}</option>
+              {{end}}
+          {{end}}
+      </datalist>
+    </div>
+    <button id="apply-filters">Search</button>
+    <button id="delete-filters">Delete</button>
+    </div>
+    </form>
+  <div class="container">
+      <div class="card-grid">
+            {{range .FoundArtists}}
+            <div class="card">
+                <a href="/artist?id={{ .ID }}">
+                    <img src="{{.Image}}" alt="{{.Name}}" class="card__image">
+                    <div class="card__overlay">
+                        <h3 class="card__title">{{.Name}}</h3>
+                    </div>
+                </a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+<script>
+    const menuButton = document.getElementById("menu-button");
+const sideMenu = document.getElementById("side-menu");
+const closeButton = document.getElementById("close-button");
+
+menuButton.addEventListener("click", () => {
+    sideMenu.classList.add("active");
+    menuButton.style.visibility = "hidden"; // Скрываем кнопку при открытии меню
+});
+
+closeButton.addEventListener("click", () => {
+    sideMenu.classList.remove("active");
+    menuButton.style.visibility = "visible"; // Показываем кнопку при закрытии меню
+});
+const deleteFiltersButton = document.getElementById("delete-filters");     
+  deleteFiltersButton.addEventListener("click", () => {
+    // Сбрасываем значения всех полей фильтрации
+    document.getElementById("fromSlider1").value = 1900;
+    document.getElementById("toSlider1").value = 2022;
+    document.getElementById("fromInput1").value = 1900;
+    document.getElementById("toInput1").value = 2022;
+
+    document.getElementById("fromSlider2").value = 1900;
+    document.getElementById("toSlider2").value = 2022;
+    document.getElementById("fromInput2").value = 1900;
+    document.getElementById("toInput2").value = 2022;
+
+    const membersCheckboxes = document.querySelectorAll(".form-check-input[name='memberscount']");
+    membersCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    // Очищаем поле для мест
+    document.querySelector("input[name='location']").value = "";
+
+    // Если нужно, добавьте другие поля фильтрации для сброса
+
+    // Закрываем боковое меню
+    sideMenu.classList.remove("active");
+    menuButton.style.visibility = "visible";
+  });
+</script>
+</body>
+</html>
